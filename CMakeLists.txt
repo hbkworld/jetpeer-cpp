@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(jetpeer_all VERSION 2.0.11 LANGUAGES CXX)
+project(jetpeer_all VERSION 1.0.0 LANGUAGES CXX)
 
 include(FetchContent)
 
@@ -30,7 +30,7 @@ else(jsoncpp_FOUND)
 endif(jsoncpp_FOUND)
 
 
-set(hbk_REQUIREDVERSION "1.0.70")
+set(hbk_REQUIREDVERSION "1.0.0")
 find_package(hbk ${hbk_REQUIREDVERSION} QUIET)
 if(hbk_FOUND)
   message(STATUS "Found hbk: ${hbk_VERSION} ${hbk_CONFIG}")
@@ -44,8 +44,7 @@ else(hbk_FOUND)
     hbk
     GIT_SHALLOW
     GIT_REPOSITORY https://github.com/hbkworld/libhbk
-    #GIT_TAG v${hbk_REQUIREDVERSION}
-    GIT_TAG origin/main
+    GIT_TAG v${hbk_REQUIREDVERSION}
   )
   FetchContent_MakeAvailable(hbk)
 endif(hbk_FOUND)
