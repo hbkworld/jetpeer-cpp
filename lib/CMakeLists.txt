@@ -78,28 +78,27 @@ foreach(tgt jetpeerasync jetpeer)
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
   )
+
+  configure_file("pkg-config/${tgt}.pc.in" "pkg-config/${tgt}.pc" @ONLY)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/pkg-config/${tgt}.pc" DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
 endforeach()
 
 
-
-write_basic_package_version_file("jetpeerConfigVersion.cmake"
+# One cmake package is created containing jetpeerasync and jetpeer
+write_basic_package_version_file("${PROJECT_NAME}ConfigVersion.cmake"
   VERSION ${PROJECT_VERSION}
   COMPATIBILITY SameMajorVersion
 )
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/jetpeerConfigVersion.cmake" DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/jetpeer)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake" DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME})
 
 # Create and install stuff for find_package
-install(EXPORT jetpeer
+install(EXPORT ${PROJECT_NAME}
    NAMESPACE jet::
-   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/jetpeer
-   FILE "jetpeerConfig.cmake"
+   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+   FILE "${PROJECT_NAME}Config.cmake"
 )
 
-
-configure_file("pkg-config/jetpeer.pc.in" "pkg-config/jetpeer.pc" @ONLY)
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/pkg-config/jetpeer.pc" DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-
-install(TARGETS jetpeerasync jetpeer EXPORT jetpeer
+install(TARGETS jetpeerasync jetpeer EXPORT ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/jet
