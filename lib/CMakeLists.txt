@@ -78,30 +78,32 @@ foreach(tgt jetpeerasync jetpeer)
     $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>
   )
-
-  write_basic_package_version_file("${tgt}ConfigVersion.cmake"
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY SameMajorVersion
-  )
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${tgt}ConfigVersion.cmake" DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${tgt})
-
-  # Create and install stuff for find_package
-  install(EXPORT ${tgt}
-     NAMESPACE jet::
-     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${tgt}
-     FILE "${tgt}Config.cmake"
-  )
-
-
-  configure_file("pkg-config/${tgt}.pc.in" "pkg-config/${tgt}.pc" @ONLY)
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/pkg-config/${tgt}.pc" DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
-
-  install(TARGETS ${tgt} EXPORT ${tgt}
-      LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-      ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-      PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/jet
-  )
 endforeach()
+
+
+
+write_basic_package_version_file("jetpeerConfigVersion.cmake"
+  VERSION ${PROJECT_VERSION}
+  COMPATIBILITY SameMajorVersion
+)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/jetpeerConfigVersion.cmake" DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/jetpeer)
+
+# Create and install stuff for find_package
+install(EXPORT jetpeer
+   NAMESPACE jet::
+   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/jetpeer
+   FILE "jetpeerConfig.cmake"
+)
+
+
+configure_file("pkg-config/jetpeer.pc.in" "pkg-config/jetpeer.pc" @ONLY)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/pkg-config/jetpeer.pc" DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+
+install(TARGETS jetpeerasync jetpeer EXPORT jetpeer
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/jet
+)
 
 configure_file("${PROJECT_SOURCE_DIR}/version.h.in" "${PROJECT_BINARY_DIR}/version.h" NEWLINE_STYLE UNIX)
 install (FILES "${PROJECT_BINARY_DIR}/version.h" DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/jet)
