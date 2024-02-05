@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(jetpeer_all VERSION 3.0.0 LANGUAGES CXX)
+project(jetpeer_all VERSION 3.0.1 LANGUAGES CXX)
 
 include(FetchContent)
 
