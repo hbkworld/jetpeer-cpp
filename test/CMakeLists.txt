@@ -8,17 +8,17 @@ set(gtest_REQUIREDVERSION "1.12.0")
 
 find_package(GTest ${gtest_REQUIREDVERSION} )
 
-if(GTest_FOUND)
-  message(STATUS "Found GTest: ${GTest_VERSION} ${GTest_CONFIG}")
+if(gtest_FOUND)
+  message(STATUS "Found GTest: ${gtest_VERSION} ${gtest_CONFIG}")
 else()
   include(FetchContent)
   set(gtest_WITH_POST_BUILD_UNITTEST OFF)
   set(gtest_WITH_TESTS OFF)
   FetchContent_Declare(
-    GTest
+    gtest
     URL https://github.com/google/googletest/archive/release-${gtest_REQUIREDVERSION}.zip
   )
-  FetchContent_MakeAvailable(GTest)
+  FetchContent_MakeAvailable(gtest)
 endif()
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
