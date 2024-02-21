@@ -18,7 +18,6 @@ else()
     GTest
     URL https://github.com/google/googletest/archive/release-${gtest_REQUIREDVERSION}.zip
   )
-  FetchContent_GetProperties(GTest)
   FetchContent_MakeAvailable(GTest)
 endif()
 
@@ -107,7 +106,7 @@ foreach(tgt ${targets})
           -Wall -Werror ${CGOV_COMPILE_FLAGS} ${ASAN_COMPILE_FLAGS}>
     )
     target_link_options(${tgt} PRIVATE ${GCOV_LINK_FLAGS} )
-    target_link_libraries(${tgt} ${ASAN_LIB} ${GCOV_LIB} ${CMAKE_THREAD_LIBS_INIT} peer_test_lib hbk::hbk jsoncpp_lib GTest::GTest GTest::Main)
+    target_link_libraries(${tgt} ${ASAN_LIB} ${GCOV_LIB} ${CMAKE_THREAD_LIBS_INIT} peer_test_lib hbk::hbk jsoncpp_lib GTest::gtest GTest::gtest_main)
     target_include_directories(${tgt} PRIVATE ${Boost_INCLUDE_DIRS})
 
 
