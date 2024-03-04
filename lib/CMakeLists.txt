@@ -40,7 +40,7 @@ set_property(TARGET jetpeer APPEND PROPERTY PUBLIC_HEADER
 # Synchronous peer is a shell around the asynchronous peer
 # Programs using the Synchronous peer, have also to link the asynch peer
 # It also requires multithreading
-target_link_libraries(jetpeer INTERFACE jetpeerasync ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(jetpeer INTERFACE jetpeerasync Threads::Threads)
 
 
 include(GNUInstallDirs)
