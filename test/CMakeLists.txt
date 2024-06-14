@@ -16,6 +16,7 @@ else()
   set(GTest_WITH_POST_BUILD_UNITTEST OFF)
   set(GTest_WITH_TESTS OFF)
   set(INSTALL_GTest OFF)
+  set(BUILD_GMOCK OFF)
   FetchContent_Declare(
     GTest
     URL https://github.com/google/googletest/archive/release-${GTest_REQUIREDVERSION}.zip
