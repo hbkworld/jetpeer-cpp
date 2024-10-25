@@ -63,6 +63,12 @@ namespace hbk
 			/// find the request this reply belongs to!
 			static void handleResult(const Json::Value& params);
 
+			/// \return Number of responses we are waiting for (open transactions)
+			static size_t openRequestCount()
+			{
+				return m_openRequestCbs.size();
+			}
+
 			/// Clear all open requests. Responses for those won't be recognized afterwards!
 			/// All request callbacks will be called with an error object stating that the request was canceled without response!
 			/// \return number of requests removed

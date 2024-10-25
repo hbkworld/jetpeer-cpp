@@ -258,6 +258,8 @@ namespace hbk
 			/// \return -1: error, 0: nothing to be read
 			int receive();
 
+			/// \return Number of responses we are waiting for (open transactions)
+			size_t openRequestCount() const;
 
 		protected:
 			/// the path of the method is the key.
