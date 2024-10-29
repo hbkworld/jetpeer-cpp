@@ -170,6 +170,12 @@ namespace hbk {
 			}
 		}
 
+		size_t PeerAsync::openRequestCount() const
+		{
+			return AsyncRequest::openRequestCount();
+		}
+
+
 		void PeerAsync::stop()
 		{
 			syslog(LOG_DEBUG, "jet peer '%s' %s:%u: Stopping...", m_name.c_str(), m_address.c_str(), m_port);
