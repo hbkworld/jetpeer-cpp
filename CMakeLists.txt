@@ -9,27 +9,6 @@ option(JETPEER_TOOLS                "Compile client software" OFF)
 option(JETPEER_POST_BUILD_UNITTEST  "Automatically run unit-tests as a post build step" OFF)
 option(JETPEER_GENERATE_DOC         "Generate documentation" OFF)
 
-set(jsoncpp_REQUIREDVERSION "1.9.3")
-# This imports "jsoncpp_lib" instead of the expected "jsoncpp"
-find_package(jsoncpp ${jsoncpp_REQUIREDVERSION} QUIET)
-if(jsoncpp_FOUND)
-  message(STATUS "Found jsoncpp: ${jsoncpp_VERSION} ${jsoncpp_CONFIG}")
-else(jsoncpp_FOUND)
-  message(STATUS "Fetching jsoncpp ${jsoncpp_REQUIREDVERSION}...")
-  if (CMAKE_VERSION VERSION_GREATER "3.24.0")
-    cmake_policy(SET CMP0135 OLD)
-  endif()
-  set(JSONCPP_WITH_POST_BUILD_UNITTEST OFF CACHE INTERNAL "")
-  set(JSONCPP_WITH_TESTS OFF CACHE INTERNAL "")
-  set(JSONCPP_WITH_STRICT_ISO OFF)
-  set(JSONCPP_DOWNLOAD_EXTRACT_TIMESTAMP ON)
-  FetchContent_Declare(
-    jsoncpp
-    URL https://github.com/open-source-parsers/jsoncpp/archive/${jsoncpp_REQUIREDVERSION}.zip
-  )
-  FetchContent_MakeAvailable(jsoncpp)
-endif(jsoncpp_FOUND)
-
 
 set(hbk_REQUIREDVERSION "2.1.0")
 find_package(hbk ${hbk_REQUIREDVERSION} QUIET)
